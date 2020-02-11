@@ -1,9 +1,9 @@
 // Created on 2/9/20.
-// Copyright (c) 2020 ABC Virtual Communications, Inc. All rights reserved.
+// Copyright (c) 2020 Huy Tran, Inc. All rights reserved.
 
 import UIKit
 
-class ViewController: UIViewController {
+class WeatherViewController: UIViewController {
   
   //MARK: - Closure
   private var didSelectCities: ((_ cities: [CityModel]) -> Void)? = nil
@@ -214,7 +214,7 @@ class ViewController: UIViewController {
 
 }
 
-extension ViewController: CitiesViewControllerDelegate {
+extension WeatherViewController: CitiesViewControllerDelegate {
   
   func didSelectCities(_ cities: [CityModel]) {
     if let callback = self.didSelectCities {

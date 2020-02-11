@@ -1,5 +1,5 @@
 // Created on 2/11/20.
-// Copyright (c) 2020 ABC Virtual Communications, Inc. All rights reserved.
+// Copyright (c) 2020 Huy Tran, Inc. All rights reserved.
 
 import UIKit
 
@@ -28,7 +28,7 @@ class PageController: UIPageViewController {
   private func initData() {
     
     for (index, _) in self.cities.enumerated() {
-      let weatherViewController = ViewController(cities: self.cities, index: index)
+      let weatherViewController = WeatherViewController(cities: self.cities, index: index)
       weatherViewController.setOnDidSelectCities { [weak self] (didSelectCities) in
         if let self = self {
           self.cities = didSelectCities

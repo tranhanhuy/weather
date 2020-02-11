@@ -1,5 +1,5 @@
 // Created on 2/11/20.
-// Copyright (c) 2020 ABC Virtual Communications, Inc. All rights reserved.
+// Copyright (c) 2020 Huy Tran, Inc. All rights reserved.
 
 import XCTest
 @testable import weather

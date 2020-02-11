@@ -1,5 +1,5 @@
 // Created on 2/9/20.
-// Copyright (c) 2020 ABC Virtual Communications, Inc. All rights reserved.
+// Copyright (c) 2020 Huy Tran, Inc. All rights reserved.
 
 //Weather
 let API_KEY: String = "fcb03c17ab6bb5606920752f712561de"
