@@ -5,6 +5,12 @@ import UIKit
 
 class ViewController: UIViewController {
   
+  //MARK: - Closure
+  private var didSelectCities: ((_ cities: [CityModel]) -> Void)? = nil
+  func setOnDidSelectCities(_ callback: ((_ cities: [CityModel]) -> Void)?) {
+    didSelectCities = callback
+  }
+  
   override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
   }
@@ -15,7 +21,14 @@ class ViewController: UIViewController {
   private var todayWeatherView: TodayWeatherView!
   private var dayWeatherViews: [DayWeatherView] = []
   private var contentHeight: CGFloat = 0.0
-  private var city: CityModel? = CITIES.first
+  private var cities: [CityModel] = []
+  var city: CityModel?
+  
+  convenience init(cities: [CityModel], index: Int) {
+    self.init()
+    self.cities = cities
+    self.city = cities[index]
+  }
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -176,18 +189,37 @@ class ViewController: UIViewController {
   //MARK: - Action
   private func cityButtonTouched() {
     let vc = CitiesViewController()
-    vc.selectedCity = self.city
+    vc.selectedCities = self.cities
     vc.delegate = self
-    self.navigationController?.pushViewController(vc, animated: true)
+    if #available(iOS 13.0, *) {
+      let keyWindow = UIApplication.shared.connectedScenes
+        .filter({$0.activationState == .foregroundActive})
+        .map({$0 as? UIWindowScene})
+        .compactMap({$0})
+        .first?.windows
+        .filter({$0.isKeyWindow}).first
+      if let window = keyWindow {
+        if let navigation = window.rootViewController as? UINavigationController {
+          navigation.pushViewController(vc, animated: true)
+        }
+      }
+    } else {
+      if let app = UIApplication.shared.delegate as? AppDelegate, let window = app.window {
+          if let navigation = window.rootViewController as? UINavigationController {
+            navigation.pushViewController(vc, animated: true)
+          }
+      }
+    }
   }
 
 }
 
 extension ViewController: CitiesViewControllerDelegate {
   
-  func didSelectCity(_ city: CityModel) {
-    self.city = city
-    self.fetchData()
+  func didSelectCities(_ cities: [CityModel]) {
+    if let callback = self.didSelectCities {
+      callback(cities)
+    }
   }
     
 }

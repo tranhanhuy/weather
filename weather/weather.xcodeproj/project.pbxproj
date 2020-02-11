@@ -12,6 +12,8 @@
 		8452638123F26224004F6FE5 /* AppResources.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452638023F26224004F6FE5 /* AppResources.swift */; };
 		8452638323F27B5D004F6FE5 /* AppTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452638223F27B5D004F6FE5 /* AppTest.swift */; };
 		8452638B23F28958004F6FE5 /* modelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452638A23F28958004F6FE5 /* modelTests.swift */; };
+		8452638D23F28EA2004F6FE5 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452638C23F28EA2004F6FE5 /* HomeViewController.swift */; };
+		8452638F23F28ED6004F6FE5 /* PageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8452638E23F28ED6004F6FE5 /* PageController.swift */; };
 		8464076C23F25BB500A23595 /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8464076B23F25BB500A23595 /* CitiesViewController.swift */; };
 		84675BCE23F247A90092CC4C /* UIImageViewEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84675BCD23F247A90092CC4C /* UIImageViewEx.swift */; };
 		84675BD023F252DA0092CC4C /* DateEx.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84675BCF23F252DA0092CC4C /* DateEx.swift */; };
@@ -66,6 +68,8 @@
 		8452638623F27DDD004F6FE5 /* AlamofireObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = AlamofireObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8452638823F27DDD004F6FE5 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8452638A23F28958004F6FE5 /* modelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = modelTests.swift; sourceTree = "<group>"; };
+		8452638C23F28EA2004F6FE5 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		8452638E23F28ED6004F6FE5 /* PageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageController.swift; sourceTree = "<group>"; };
 		8464076B23F25BB500A23595 /* CitiesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
 		84675BCD23F247A90092CC4C /* UIImageViewEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImageViewEx.swift; sourceTree = "<group>"; };
 		84675BCF23F252DA0092CC4C /* DateEx.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateEx.swift; sourceTree = "<group>"; };
@@ -158,6 +162,8 @@
 			children = (
 				84EE84BA23F035D8001EB94B /* ViewController.swift */,
 				8464076B23F25BB500A23595 /* CitiesViewController.swift */,
+				8452638C23F28EA2004F6FE5 /* HomeViewController.swift */,
+				8452638E23F28ED6004F6FE5 /* PageController.swift */,
 			);
 			path = "view-Controller";
 			sourceTree = "<group>";
@@ -531,7 +537,9 @@
 			files = (
 				8452638123F26224004F6FE5 /* AppResources.swift in Sources */,
 				84D5E1EE23F10BDD005C709E /* DayWeatherView.swift in Sources */,
+				8452638D23F28EA2004F6FE5 /* HomeViewController.swift in Sources */,
 				84675BD223F254FE0092CC4C /* TopView.swift in Sources */,
+				8452638F23F28ED6004F6FE5 /* PageController.swift in Sources */,
 				84D5E1F423F11187005C709E /* TempModel.swift in Sources */,
 				84EE84BB23F035D8001EB94B /* ViewController.swift in Sources */,
 				84D5E1FC23F112F0005C709E /* AppConstants.swift in Sources */,
