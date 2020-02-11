@@ -60,13 +60,32 @@ class weatherUITests: XCTestCase {
     XCTAssertTrue(app.tables["citiesView"].exists)
   }
   
-  //Select another city and back to main screen
-  func testSelectAnotherCity() {
+  //Select other cities and back to main screen
+  func testSelectOtherCities() {
     app.launch()
     app.buttons["cityButton"].tap()
-    let cell = app.tables["citiesView"].cells.element(boundBy: 1)
-    cell.tap()
+    let cell1 = app.tables["citiesView"].cells.element(boundBy: 1)
+    cell1.tap()
+    let cell2 = app.tables["citiesView"].cells.element(boundBy: 2)
+    cell2.tap()
+    let cell3 = app.tables["citiesView"].cells.element(boundBy: 3)
+    cell3.tap()
+    app.buttons["backButton"].tap()
     XCTAssertTrue(app.otherElements["mainScreen"].exists)
   }
   
+  func testSwipePages() {
+    app.launch()
+    app.buttons["cityButton"].tap()
+    let cell1 = app.tables["citiesView"].cells.element(boundBy: 1)
+    cell1.tap()
+    let cell2 = app.tables["citiesView"].cells.element(boundBy: 2)
+    cell2.tap()
+    let cell3 = app.tables["citiesView"].cells.element(boundBy: 3)
+    cell3.tap()
+    app.buttons["backButton"].tap()
+    app.swipeLeft()
+    app.swipeLeft()
+    XCTAssertTrue(app.otherElements["mainScreen"].exists)
+  }
 }

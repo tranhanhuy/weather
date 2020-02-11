@@ -26,7 +26,8 @@ class CitiesViewController: UITableViewController {
   private func customNavigationbar() {
     self.navigationController?.setNavigationBarHidden(false, animated: false)
     self.navigationItem.hidesBackButton = true
-    let newBackButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(self.backButtonTouched(_:)))
+    let newBackButton = UIBarButtonItem(title: RS_BACK, style: .plain, target: self, action: #selector(self.backButtonTouched(_:)))
+    newBackButton.accessibilityIdentifier = AppTest.instance.backButton
     self.navigationItem.leftBarButtonItem = newBackButton
   }
   

@@ -19,5 +19,6 @@ class AppTest {
   let cityButton: String = "cityButton"
   let citiesView: String = "citiesView"
   let mainScreen: String = "mainScreen"
+  let backButton: String = "backButton"
   
 }

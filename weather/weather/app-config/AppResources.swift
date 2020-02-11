@@ -1,8 +1,7 @@
 // Created on 2/10/20.
 // Copyright (c) 2020 ABC Virtual Communications, Inc. All rights reserved.
 
-import Foundation
-
+let RS_BACK = "Back"
 let RS_YES = "Yes"
 let RS_NO = "No"
 let RS_LOCATIONS = "Locations"
