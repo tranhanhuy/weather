@@ -6,6 +6,7 @@ import ObjectMapper
 
 class DayModel: Mappable {
   
+  internal var dayOfWeak: String?
   internal var temp: TempModel?
   internal var weather: [WeatherModel]?
   

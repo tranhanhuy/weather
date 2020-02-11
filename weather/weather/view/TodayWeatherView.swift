@@ -24,18 +24,19 @@ class TodayWeatherView: UIView {
   private var tempMinLabel: UILabel!
   private var tempDayLabel: UILabel!
   
-  private var heightIcon: CGFloat = 20.0
+  private var heightIcon: CGFloat = 40.0
+  private var widthIcon: CGFloat = 40.0
   
   private func initUI() {
     
     //Row 1
     self.icon = UIImageView()
-    self.icon.contentMode = .center
+    self.icon.contentMode = .scaleAspectFit
     self.icon.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.icon)
     self.icon.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
     self.icon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
-    self.icon.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
+    self.icon.widthAnchor.constraint(equalToConstant: self.widthIcon).isActive = true
     self.icon.heightAnchor.constraint(equalToConstant: self.heightIcon).isActive = true
     
     self.weatherMainLabel = UILabel()
@@ -43,17 +44,17 @@ class TodayWeatherView: UIView {
     self.weatherMainLabel.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.weatherMainLabel)
     self.weatherMainLabel.centerYAnchor.constraint(equalTo: self.icon.centerYAnchor).isActive = true
-    self.weatherMainLabel.leadingAnchor.constraint(equalTo: self.icon.trailingAnchor, constant: 10.0).isActive = true
+    self.weatherMainLabel.leadingAnchor.constraint(equalTo: self.icon.trailingAnchor, constant: 5.0).isActive = true
     
     //Row 2
     self.tempMaxIcon = UIImageView()
     self.tempMaxIcon.image = UIImage(named: "TempMax")
     self.tempMaxIcon.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.tempMaxIcon)
-    self.tempMaxIcon.topAnchor.constraint(equalTo: self.icon.bottomAnchor, constant: 20.0).isActive = true
+    self.tempMaxIcon.topAnchor.constraint(equalTo: self.icon.bottomAnchor, constant: 10.0).isActive = true
     self.tempMaxIcon.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 20.0).isActive = true
     self.tempMaxIcon.widthAnchor.constraint(equalToConstant: 10.0).isActive = true
-    self.tempMaxIcon.heightAnchor.constraint(equalToConstant: self.heightIcon).isActive = true
+    self.tempMaxIcon.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
     
     self.tempMaxLabel = UILabel()
     self.tempMaxLabel.textColor = UIColor.white
@@ -96,7 +97,7 @@ class TodayWeatherView: UIView {
   func populate(_ day: DayModel) {
     if let weather = day.weather?.first {
       self.weatherMainLabel.text = weather.main
-      self.icon.sd_setImage(with: URL(string: "\(IMAGE_PATH)\(weather.icon!)@2x.png"))
+      self.icon.load(url: URL(string: "\(IMAGE_PATH)\(weather.icon!)@2x.png")!, placeholder: nil)
     }
     
     if let temp = day.temp {

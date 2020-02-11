@@ -14,7 +14,7 @@ class APIService {
     return Singleton.instance
   }
   
-  func weatherInfo(cityId: String, success: @escaping (_ weatherResponse: WeatherResponse) -> (),
+  func weatherInfo(cityId: Double, success: @escaping (_ weatherResponse: WeatherResponse) -> (),
                failed: @escaping () -> ()) {
     var params: [String: Any] = [:]
     params["APPID"] = API_KEY

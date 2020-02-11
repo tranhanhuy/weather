@@ -16,6 +16,11 @@ class CityModel: Mappable {
     mapping(map: map)
   }
   
+  init(id: Double, name: String) {
+    self.id = id
+    self.name = name
+  }
+  
   func mapping(map:Map){
     id <- map["id"]
     name <- map["name"]

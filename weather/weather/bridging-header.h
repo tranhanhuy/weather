@@ -4,6 +4,4 @@
 #ifndef bridging_header_h
 #define bridging_header_h
 
-#import <SDWebImage/UIImageView+WebCache.h>
-
 #endif /* bridging_header_h */

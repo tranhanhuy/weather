@@ -4,43 +4,59 @@
 import UIKit
 
 class ViewController: UIViewController {
+  
+  override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+  }
 
   private var scrollView: UIScrollView!
   private var backgroundView: UIImageView!
+  private var topView: TopView!
   private var todayWeatherView: TodayWeatherView!
   private var dayWeatherViews: [DayWeatherView] = []
   private var contentHeight: CGFloat = 0.0
+  private var city: CityModel? = CITIES.first
   
   override func viewDidLoad() {
     super.viewDidLoad()
     self.initUI()
-    
-    APIService.instance.weatherInfo(cityId: "1566083", success: { [weak self] (response) in
-      if let self = self {
-        if response.city != nil {
-          self.backgroundView.image = response.city.background
-        }
-        if let today = response.list.first {
-          self.todayWeatherView.populate(today)
-        }
-        for (index, entry) in response.list.enumerated() {
-          if (0 < index && index <= self.dayWeatherViews.count) {
-            self.dayWeatherViews[index - 1].populate(entry)
-          }
-          
-        }
-      }
-    }) {
-      print("false")
-    }
+    self.fetchData()
   }
   
+  override func viewWillAppear(_ animated: Bool) {
+    super.viewWillAppear(animated)
+    self.navigationController?.setNavigationBarHidden(true, animated: false)
+  }
+  
+  //MARK: - UI
   private func initUI() {
     self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
     
     self.scrollView = UIScrollView()
     self.view.addContainerView(self.scrollView)
     
+    //Add top
+    self.topView = TopView()
+    self.topView.translatesAutoresizingMaskIntoConstraints = false
+    self.topView.setOnCityButtonTouched { [weak self] in
+      if let self = self {
+        self.cityButtonTouched()
+      }
+    }
+    self.view.addSubview(self.topView)
+    if #available(iOS 11.0, *) {
+      self.topView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor).isActive = true
+      self.topView.leadingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+      self.topView.trailingAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+    } else {
+      self.topView.topAnchor.constraint(equalTo: self.view.topAnchor).isActive = true
+      self.topView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
+      self.topView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
+    }
+    self.topView.heightAnchor.constraint(equalToConstant: self.topView.adjustedHeight()).isActive = true
+    
+    
+    //Add today weather
     self.todayWeatherView = TodayWeatherView()
     self.todayWeatherView.translatesAutoresizingMaskIntoConstraints = false
     self.scrollView.addSubview(self.todayWeatherView)
@@ -53,7 +69,7 @@ class ViewController: UIViewController {
     
     for i in 0..<5 {
       let dayWeatherView = DayWeatherView()
-      dayWeatherView.backgroundColor = UIColor.gray.withAlphaComponent(0.8)
+      dayWeatherView.backgroundColor = UIColor.black.withAlphaComponent(0.3)
       dayWeatherView.translatesAutoresizingMaskIntoConstraints = false
       self.scrollView.addSubview(dayWeatherView)
       self.dayWeatherViews.append(dayWeatherView)
@@ -77,27 +93,68 @@ class ViewController: UIViewController {
     self.backgroundView.contentMode = .scaleAspectFill
     self.scrollView.insertSubview(self.backgroundView, at: 0)
     if #available(iOS 11.0, *) {
-        let window = UIApplication.shared.keyWindow
+      let window = UIApplication.shared.keyWindow
       let bottomPadding = window?.safeAreaInsets.bottom
       self.backgroundView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: -UIApplication.shared.statusBarFrame.height).isActive = true
-      self.backgroundView.heightAnchor.constraint(equalToConstant: self.contentHeight + UIApplication.shared.statusBarFrame.height + (bottomPadding ?? 0.0)).isActive = true
+      self.backgroundView.heightAnchor.constraint(equalToConstant: self.contentHeight + UIApplication.shared.statusBarFrame.height + (bottomPadding ?? 30.0)).isActive = true
     } else {
       self.backgroundView.topAnchor.constraint(equalTo: self.scrollView.topAnchor, constant: -UIApplication.shared.statusBarFrame.height).isActive = true
       self.backgroundView.heightAnchor.constraint(equalToConstant: self.contentHeight + UIApplication.shared.statusBarFrame.height).isActive = true
     }
-    
     self.backgroundView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor).isActive = true
     self.backgroundView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor).isActive = true
     
     let scrollSize = CGSize(width: self.scrollView.frame.size.width, height: self.contentHeight)
     self.scrollView.contentSize = scrollSize
+    
   }
   
-
+  //MARK: - Data
+  private func fetchData() {
+    if let city = self.city {
+      APIService.instance.weatherInfo(cityId: city.id, success: { [weak self] (response) in
+        if let self = self {
+          let currentDay = Date()
+          if response.city != nil {
+            self.backgroundView.image = response.city.background
+            self.city = response.city
+            self.topView.populate(response.city)
+          }
+          
+          if let today = response.list.first {
+            today.dayOfWeak = currentDay.dayOfWeek()
+            self.todayWeatherView.populate(today)
+          }
+          for (index, entry) in response.list.enumerated() {
+            if (0 < index && index <= self.dayWeatherViews.count) {
+              let modifiedDate = Calendar.current.date(byAdding: .day, value: index, to: currentDay)!
+              entry.dayOfWeak = modifiedDate.dayOfWeek()
+              self.dayWeatherViews[index - 1].populate(entry)
+            }
+            
+          }
+        }
+      }) {
+        print("false")
+      }
+    }
+  }
+  
+  //MARK: - Action
+  private func cityButtonTouched() {
+    let vc = CitiesViewController()
+    vc.selectedCity = self.city
+    vc.delegate = self
+    self.navigationController?.pushViewController(vc, animated: true)
+  }
 
 }
 
-
-//extension ViewController: UIScrollViewDelegate {
-//
-//}
+extension ViewController: CitiesViewControllerDelegate {
+  
+  func didSelectCity(_ city: CityModel) {
+    self.city = city
+    self.fetchData()
+  }
+    
+}

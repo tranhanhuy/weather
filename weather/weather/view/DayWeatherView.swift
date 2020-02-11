@@ -23,8 +23,12 @@ class DayWeatherView: UIView {
   private var tempMaxLabel: UILabel!
   private var tempMinLabel: UILabel!
   
+  private var heightIcon: CGFloat = 40.0
+  private var widthIcon: CGFloat = 40.0
+  
   private func initUI() {
     self.tempMinLabel = UILabel()
+    self.tempMinLabel.textColor = UIColor.white
     self.tempMinLabel.textAlignment = .center
     self.tempMinLabel.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.tempMinLabel)
@@ -33,23 +37,25 @@ class DayWeatherView: UIView {
     self.tempMinLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     
     self.tempMaxLabel = UILabel()
+    self.tempMaxLabel.textColor = UIColor.white
     self.tempMaxLabel.textAlignment = .center
     self.tempMaxLabel.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.tempMaxLabel)
-    self.tempMaxLabel.trailingAnchor.constraint(equalTo: self.tempMinLabel.leadingAnchor, constant: 10.0).isActive = true
+    self.tempMaxLabel.trailingAnchor.constraint(equalTo: self.tempMinLabel.leadingAnchor, constant: -30.0).isActive = true
     self.tempMaxLabel.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
     self.tempMaxLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     
     self.icon = UIImageView()
-    self.icon.contentMode = .scaleAspectFill
+    self.icon.contentMode = .scaleAspectFit
     self.icon.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.icon)
-    self.icon.trailingAnchor.constraint(equalTo: self.tempMaxLabel.leadingAnchor, constant: 20.0).isActive = true
-    self.icon.widthAnchor.constraint(equalToConstant: 30.0).isActive = true
-    self.icon.heightAnchor.constraint(equalToConstant: 20.0).isActive = true
+    self.icon.trailingAnchor.constraint(equalTo: self.tempMaxLabel.leadingAnchor, constant: -30.0).isActive = true
+    self.icon.widthAnchor.constraint(equalToConstant: self.widthIcon).isActive = true
+    self.icon.heightAnchor.constraint(equalToConstant: self.heightIcon).isActive = true
     self.icon.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
     
     self.dayLabel = UILabel()
+    self.dayLabel.textColor = UIColor.white
     self.dayLabel.translatesAutoresizingMaskIntoConstraints = false
     self.addSubview(self.dayLabel)
     self.dayLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 10.0).isActive = true
@@ -60,14 +66,14 @@ class DayWeatherView: UIView {
   
   //MARK: - open Function
   func adjustedHeight() -> CGFloat {
-    return 40.0
+    return 50.0
   }
   
   
   func populate(_ day: DayModel) {
+    self.dayLabel.text = day.dayOfWeak ?? ""
     if let weather = day.weather?.first {
-//      self.dayLabel.text = weather.main
-      self.icon.sd_setImage(with: URL(string: "\(IMAGE_PATH)\(weather.icon!)@2x.png"))
+      self.icon.load(url: URL(string: "\(IMAGE_PATH)\(weather.icon!)@2x.png")!, placeholder: nil)
     }
     
     if let temp = day.temp {
@@ -75,19 +81,5 @@ class DayWeatherView: UIView {
       self.tempMinLabel.text = "\((Int)(temp.min ?? 0))°"
     }
   }
-  
-  
-  //MARK: - Button touched
-//  @objc private func closeButtonTouched(_ sender: Any) {
-//    if let callback = self.closeButtonTouchedCallback {
-//      callback()
-//    }
-//  }
-//
-//  @objc private func bookButtonTouched(_ sender: Any) {
-//    if let callback = self.bookButtonTouchedCallback {
-//      callback()
-//    }
-//  }
   
 }

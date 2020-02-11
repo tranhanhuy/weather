@@ -12,11 +12,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
   func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
     // Override point for customization after application launch.
     
-    let viewController: UIViewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "weather") as UIViewController
-
-    
+    let viewController: UIViewController = ViewController()
+    let navigationController = UINavigationController.init(rootViewController: viewController)
+    navigationController.setNavigationBarHidden(false, animated: true)
     window = UIWindow(frame: UIScreen.main.bounds)
-    window!.rootViewController = viewController
+    window!.rootViewController = navigationController
     window!.makeKeyAndVisible()
     return true
   }
