@@ -19,11 +19,16 @@ class CitiesViewController: UITableViewController {
     super.viewDidLoad()
     self.navigationController?.setNavigationBarHidden(false, animated: false)
     self.title = RS_LOCATIONS
+    self.view.accessibilityIdentifier = AppTest.instance.citiesView
   }
   
   // MARK: - Table view data source
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return CITIES.count
+  }
+  
+  override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    return RS_CITY
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

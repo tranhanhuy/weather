@@ -2,37 +2,71 @@
 // Copyright (c) 2020 ABC Virtual Communications, Inc. All rights reserved.
 
 import XCTest
+@testable import weather
 
 class weatherUITests: XCTestCase {
+  
+  var app: XCUIApplication!
+  
+  override func setUp() {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    
+    // In UI tests it is usually best to stop immediately when a failure occurs.
+    continueAfterFailure = false
+    
+    // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
 
-    override func setUp() {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
-        continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
-    }
-
-    override func tearDown() {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
-    }
-
-    func testExample() {
-        // UI tests must launch the application that they test.
-        let app = XCUIApplication()
-        app.launch()
-
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-    }
-
-    func testLaunchPerformance() {
-        if #available(macOS 10.15, iOS 13.0, tvOS 13.0, *) {
-            // This measures how long it takes to launch your application.
-            measure(metrics: [XCTOSSignpostMetric.applicationLaunch]) {
-                XCUIApplication().launch()
-            }
-        }
-    }
+    app = XCUIApplication()
+  }
+  
+  override func tearDown() {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+  }
+  
+  func testAppLaunch() {
+    app.launch()
+  }
+  
+  //First Step: Need to display Today weather information
+  func testLaunchTodayWeatherView() {
+    app.launch()
+    XCTAssertTrue(app.otherElements["todayWeatherView"].exists)
+  }
+  
+  //Second Step: Need to display weather of five days
+  //Condition: Scroll Up
+  func testLaunchDayWeatherView() {
+    app.launch()
+    app.swipeUp()
+    XCTAssertTrue(app.otherElements["dayWeatherView"].exists)
+  }
+  
+  //Show Top Information: City Name
+  func testDisplayCityName() {
+    app.launch()
+    XCTAssertTrue(app.staticTexts["cityName"].exists)
+  }
+  
+  //Show Top Information: Location Button
+  func testDisplayCityButton() {
+    app.launch()
+    XCTAssertTrue(app.buttons["cityButton"].exists)
+  }
+  
+  //Show List of cities
+  func testShowCitiesViewController() {
+    app.launch()
+    app.buttons["cityButton"].tap()
+    XCTAssertTrue(app.tables["citiesView"].exists)
+  }
+  
+  //Select another city and back to main screen
+  func testSelectAnotherCity() {
+    app.launch()
+    app.buttons["cityButton"].tap()
+    let cell = app.tables["citiesView"].cells.element(boundBy: 1)
+    cell.tap()
+    XCTAssertTrue(app.otherElements["mainScreen"].exists)
+  }
+  
 }

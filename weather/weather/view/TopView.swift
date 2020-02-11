@@ -26,8 +26,10 @@ class TopView: UIView {
   private var cityButton: UIButton!
   
   private func initUI() {
-    self.cityLabel = UILabel()
+    self.accessibilityIdentifier = AppTest.instance.topView
     
+    self.cityLabel = UILabel()
+    self.cityLabel.accessibilityIdentifier = AppTest.instance.cityName
     self.cityLabel.textColor = UIColor.white
     self.cityLabel.font = UIFont.systemFont(ofSize: 18.0)
     self.cityLabel.textAlignment = .center
@@ -37,6 +39,7 @@ class TopView: UIView {
     self.cityLabel.centerXAnchor.constraint(equalTo: self.centerXAnchor).isActive = true
     
     self.cityButton = UIButton()
+    self.cityButton.accessibilityIdentifier = AppTest.instance.cityButton
     self.cityButton.setImage(UIImage.init(named: "location"), for: .normal)
     self.cityButton.contentMode = .scaleAspectFill
     self.cityButton.tintColor = UIColor.white

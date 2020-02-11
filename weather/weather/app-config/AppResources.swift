@@ -3,14 +3,20 @@
 
 import Foundation
 
+let RS_YES = "Yes"
+let RS_NO = "No"
 let RS_LOCATIONS = "Locations"
+let RS_CITY = "City"
+let RS_CITY_DIDNT_SUPPORT = "City didn't support."
+let RS_SELECT_ANOTHER_CITY = "Please select another city."
+
 
 let CITIES: [CityModel] = [
-  CityModel(id: 2950158, name: "Berlin"),
-  CityModel(id: 658226, name: "Helsinki"),
   CityModel(id: 1566083, name: "Ho Chi Minh"),
-  CityModel(id: 2643743, name: "London"),
-  CityModel(id: 3451189, name: "Rio"),
-  CityModel(id: 2673730, name: "Stockholm"),
   CityModel(id: 1850147, name: "Tokyo"),
+  CityModel(id: 2950158, name: "Berlin"),
+  CityModel(id: 2643743, name: "London"),
+  CityModel(id: 658226, name: "Helsinki"),
+  CityModel(id: 2673730, name: "Stockholm"),
+  CityModel(id: 3451189, name: "Rio"),
 ]

@@ -31,6 +31,7 @@ class ViewController: UIViewController {
   //MARK: - UI
   private func initUI() {
     self.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+    self.view.accessibilityIdentifier = AppTest.instance.mainScreen
     
     self.scrollView = UIScrollView()
     self.view.addContainerView(self.scrollView)
@@ -111,6 +112,38 @@ class ViewController: UIViewController {
   
   //MARK: - Data
   private func fetchData() {
+    
+    func responseSuccess() {
+      self.todayWeatherView.isHidden = false
+      self.dayWeatherViews.forEach { (view) in
+        view.isHidden = false
+      }
+    }
+    
+    func responseFail() {
+      if let city = self.city {
+        self.topView.populate(city)
+      }
+      self.todayWeatherView.isHidden = true
+      self.dayWeatherViews.forEach { (view) in
+        view.isHidden = true
+      }
+      alertCityDidntSupport()
+    }
+    
+    func alertCityDidntSupport() {
+      if let city = self.city {
+        let alert = UIAlertController(title: "\(city.name!) \(RS_CITY_DIDNT_SUPPORT)", message: RS_SELECT_ANOTHER_CITY, preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: RS_YES, style: .default) { [weak self] (_) in
+          if let self = self {
+            self.cityButtonTouched()
+          }
+        })
+        alert.addAction(UIAlertAction(title: RS_NO, style: .cancel, handler: nil))
+        self.present(alert, animated: true)
+      }
+    }
+    
     if let city = self.city {
       APIService.instance.weatherInfo(cityId: city.id, success: { [weak self] (response) in
         if let self = self {
@@ -131,11 +164,11 @@ class ViewController: UIViewController {
               entry.dayOfWeak = modifiedDate.dayOfWeek()
               self.dayWeatherViews[index - 1].populate(entry)
             }
-            
           }
+          responseSuccess()
         }
       }) {
-        print("false")
+        responseFail()
       }
     }
   }

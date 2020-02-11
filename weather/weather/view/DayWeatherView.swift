@@ -27,6 +27,8 @@ class DayWeatherView: UIView {
   private var widthIcon: CGFloat = 40.0
   
   private func initUI() {
+    self.accessibilityIdentifier = AppTest.instance.dayWeatherView
+    
     self.tempMinLabel = UILabel()
     self.tempMinLabel.textColor = UIColor.white
     self.tempMinLabel.textAlignment = .center

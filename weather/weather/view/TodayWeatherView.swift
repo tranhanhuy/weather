@@ -29,6 +29,8 @@ class TodayWeatherView: UIView {
   
   private func initUI() {
     
+    self.accessibilityIdentifier = AppTest.instance.todayWeatherView
+    
     //Row 1
     self.icon = UIImageView()
     self.icon.contentMode = .scaleAspectFit
