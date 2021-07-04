@@ -6,5 +6,5 @@ cd weather
 
 xcodebuild -workspace weather.xcworkspace \
             -scheme weather \
-            -destination platform=iOS\ Simulator,OS=13.3,name=iPhone\ 11 \
+            -destination platform=iOS\ Simulator,OS=14.4,name=iPhone\ 11 \
             clean test | xcpretty
