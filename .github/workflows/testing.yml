@@ -19,4 +19,4 @@ jobs:
     - name: Run pod
       run: cd weather && pod install
     - name: Testing iOS app
-      run: exec ./.github/scripts/test_app.sh
+      run: exec ././.github/scripts/test_app.sh
