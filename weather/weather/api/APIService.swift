@@ -21,6 +21,7 @@ class APIService {
     params["id"] = cityId
     params["cnt"] = 6
     params["units"] = "metric"
+    //AF 5
     AF.request(API_WEATHER_INFO, parameters: params).responseObject { (response: DataResponse<WeatherResponse, AFError>) in
       if(response.response?.statusCode == 200){
         if let rs = response.value {
