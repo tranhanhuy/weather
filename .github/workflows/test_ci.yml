@@ -17,6 +17,6 @@ jobs:
           ruby-version: 2.4.0
           bundler-cache: true
     - name: Run pod
-      run: cd weahter && pod install
+      run: cd weather && pod install
     - name: Test - Fastlane tests
       run: bundle exec fastlane test
