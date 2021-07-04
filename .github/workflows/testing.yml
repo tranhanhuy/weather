@@ -18,5 +18,7 @@ jobs:
           bundler-cache: true
     - name: Run pod
       run: cd weather && pod install
+    - name: Set chmod Test App sh
+      run: chmod +x ./.github/scripts/test_app.sh
     - name: Testing iOS app
-      run: exec ././.github/scripts/test_app.sh
+      run: exec ./.github/scripts/test_app.sh
