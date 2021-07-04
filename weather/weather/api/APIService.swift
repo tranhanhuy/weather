@@ -21,9 +21,9 @@ class APIService {
     params["id"] = cityId
     params["cnt"] = 6
     params["units"] = "metric"
-    Alamofire.request(API_WEATHER_INFO, parameters: params).responseObject { (response: DataResponse<WeatherResponse>) in
+    AF.request(API_WEATHER_INFO, parameters: params).responseObject { (response: DataResponse<WeatherResponse, AFError>) in
       if(response.response?.statusCode == 200){
-        if let rs = response.result.value {
+        if let rs = response.value {
           success(rs)
         } else {
           failed()
