@@ -12,7 +12,7 @@ class WeatherViewController: UIViewController {
   }
   
   override var preferredStatusBarStyle: UIStatusBarStyle {
-//        return .lightContent
+        return .lightContent
   }
 
   private var scrollView: UIScrollView!
